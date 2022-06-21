@@ -1,0 +1,33 @@
+
+#█▀▄ █▀█   █▄░█ █▀█ ▀█▀   ▀█▀ █▀█ █░█ █▀▀ █░█
+#█▄▀ █▄█   █░▀█ █▄█ ░█░   ░█░ █▄█ █▄█ █▄▄ █▀█
+
+version: '3.7'
+volumes:
+  mac4pro-rome2022-influxdb:
+    external: true
+  mac4pro-rome2022-grafana:
+    external: true
+
+services:
+  influxdb:
+    image: influxdb:1.8-alpine
+    volumes:
+      - mac4pro-rome2022-influxdb:/var/lib/influxdb
+    ports:
+      - 8086:8086
+    environment:
+      INFLUXDB_DB: "rome2022"
+      INFLUXDB_HTTP_AUTH_ENABLED: 0
+      INFLUXDB_ADMIN_USER: "admin"
+      INFLUXDB_ADMIN_PASSWORD: "GUSUjWcCKm3u"
+      INFLUXDB_USER: "modron"
+      INFLUXDB_USER_PASSWORD: "BFGU6MsItdwh"
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: "MEOVqAGUmHEkAgPF3HPm"
+
+  grafana:
+    image: grafana/grafana:7.1.5
+    ports:
+      - 3000:3000
+    volumes:
+      - mac4pro-rome2022-grafana:/var/lib/grafana
